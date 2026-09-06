@@ -20,13 +20,49 @@ That's it — the tool is active and ready to use.
 
 ## Usage
 
-1. Select text in any application (Word, browser, Notepad, desktop WhatsApp, any text field).
-2. Press **`Ctrl+Alt+H`**.
-3. The selected text is converted automatically:
-   - If it contains Hebrew letters → converted to English.
-   - If it doesn't contain Hebrew (i.e. "leftover English") → converted to Hebrew.
+Select text in any application (Word, browser, Notepad, desktop WhatsApp, any text field), then press one of the shortcuts below. If no text was selected, a brief "No text selected" message appears and nothing else happens.
 
-If no text was selected before pressing the shortcut, a brief "No text selected" message will appear and nothing else happens.
+### Fix keyboard layout — `Ctrl+Alt+H`
+
+The selected text is converted automatically:
+- If it contains Hebrew letters → converted to English.
+- If it doesn't contain Hebrew (i.e. "leftover English") → converted to Hebrew.
+
+### Reverse character order — `Ctrl+Alt+J`
+
+Reverses the character order of the selection — useful for text that displays back-to-front due to an RTL/LTR display bug.
+
+### Translate — `Ctrl+Alt+T`
+
+Translates the selection automatically:
+- If it contains Hebrew → translated to English.
+- Otherwise → translated to Hebrew.
+
+The translated text replaces the selection, just like the other shortcuts. See [Setting up automatic translation](#setting-up-automatic-translation-ctrlaltt) below for how the translation itself works and how to get the best results out of it.
+
+## Setting up automatic translation (Ctrl+Alt+T)
+
+`Ctrl+Alt+T` tries up to three translation services, in order, and automatically falls back to the next one if a service is unavailable, out of quota, or returns an error:
+
+1. **DeepL API Free** — highest translation quality. Used first, if you've configured a free API key (see below).
+2. **Google Translate** — free, no key required. Used automatically whenever DeepL isn't configured or its quota is exhausted.
+3. **MyMemory** — free, no key required (an optional email raises its daily quota). Used as a last resort if both services above fail.
+
+If all three fail (e.g. no internet connection), a "Translation failed" message appears and the original text is left untouched.
+
+### Getting a free DeepL API key (optional, recommended)
+
+1. Sign up for a free account at [deepl.com/pro-api](https://www.deepl.com/pro-api) (no credit card required).
+2. Create an API key from your DeepL account page. Free-plan keys always end with `:fx`.
+3. The free plan includes **500,000 characters per month** at no cost. Once that monthly limit is reached, DeepL is skipped automatically and the tool falls back to Google Translate / MyMemory until the quota resets.
+
+### Setting up the `.env` file
+
+1. Copy [`.env.example`](./.env.example) to a new file named `.env`, in the same folder as `hebrew_fix.ahk`.
+2. Open `.env` in a text editor and fill in:
+   - `DEEPL_API_KEY` — your DeepL API Free key (leave empty to skip DeepL and start from Google Translate).
+   - `MYMEMORY_EMAIL` — optional; your email, to raise MyMemory's free daily quota from 5,000 to 50,000 characters.
+3. Save the file. `.env` is listed in `.gitignore` and is never committed to Git — your keys stay private on your own computer.
 
 ## Run automatically on startup
 
@@ -61,6 +97,7 @@ All of this happens in a fraction of a second.
 - Only works well on **uniform text** (entirely mistyped Hebrew, or entirely mistyped English). If the selection mixes in valid text from the other language, that part may get "corrupted" too, since the tool can't distinguish a real typo from correct text.
 - Supports the standard Israeli keyboard layout only (not alternative layouts such as the phonetic one).
 - Tested on Windows only.
+- `Ctrl+Alt+T` depends on an internet connection, and by default may fall back to Google Translate's unofficial, keyless endpoint, which can be rate-limited or blocked without notice. For more reliable translations, set up a free DeepL API key.
 
 ## License
 
@@ -90,13 +127,49 @@ Free to use, modify, and distribute.
 
 ## שימוש
 
-1. סמנו טקסט בכל אפליקציה (וורד, דפדפן, פתקים, וואטסאפ דסקטופ, כל תיבת טקסט שהיא).
-2. לחצו על **`Ctrl+Alt+H`**.
-3. הטקסט המסומן יומר אוטומטית:
-   - אם הוא מכיל אותיות עבריות → יומר לאנגלית.
-   - אם הוא לא מכיל עברית (כלומר "אנגלית מיותרת") → יומר לעברית.
+סמנו טקסט בכל אפליקציה (וורד, דפדפן, פתקים, וואטסאפ דסקטופ, כל תיבת טקסט שהיא), ואז לחצו על אחד הקיצורים למטה. אם לא סימנתם טקסט, תופיע הודעה קצרה "No text selected" ולא יקרה דבר.
 
-אם לא סימנתם טקסט לפני הלחיצה, תופיע הודעה קצרה "No text selected" ולא יקרה דבר.
+### תיקון פריסת מקלדת — `Ctrl+Alt+H`
+
+הטקסט המסומן יומר אוטומטית:
+- אם הוא מכיל אותיות עבריות → יומר לאנגלית.
+- אם הוא לא מכיל עברית (כלומר "אנגלית מיותרת") → יומר לעברית.
+
+### היפוך סדר תווים — `Ctrl+Alt+J`
+
+הופך את סדר התווים בבחירה — שימושי לטקסט שמוצג הפוך עקב תקלת תצוגה RTL/LTR.
+
+### תרגום — `Ctrl+Alt+T`
+
+מתרגם את הבחירה אוטומטית:
+- אם היא מכילה עברית → תתורגם לאנגלית.
+- אחרת → תתורגם לעברית.
+
+הטקסט המתורגם מחליף את הבחירה, בדיוק כמו בקיצורים האחרים. ראו [הגדרת תרגום אוטומטי](#הגדרת-תרגום-אוטומטי-ctrlaltt) למטה כדי להבין איך התרגום עובד וכיצד לקבל ממנו את התוצאות הטובות ביותר.
+
+## הגדרת תרגום אוטומטי (Ctrl+Alt+T)
+
+`Ctrl+Alt+T` מנסה עד שלושה שירותי תרגום, לפי סדר, ועובר אוטומטית לשירות הבא אם שירות מסוים לא זמין, המכסה שלו נגמרה, או שהוא מחזיר שגיאה:
+
+1. **DeepL API Free** — איכות התרגום הגבוהה ביותר. משמש ראשון, אם הגדרתם מפתח API חינמי (ראו למטה).
+2. **Google Translate** — חינמי, לא דורש מפתח. משמש אוטומטית בכל פעם ש-DeepL לא מוגדר או שהמכסה שלו נגמרה.
+3. **MyMemory** — חינמי, לא דורש מפתח (אימייל אופציונלי מעלה את המכסה היומית). משמש כמוצא אחרון אם שני השירותים הקודמים נכשלים.
+
+אם כל השלושה נכשלים (למשל אין חיבור לאינטרנט), תופיע הודעת "Translation failed" והטקסט המקורי נשאר ללא שינוי.
+
+### קבלת מפתח API חינמי מ-DeepL (אופציונלי, מומלץ)
+
+1. הירשמו לחשבון חינמי בכתובת [deepl.com/pro-api](https://www.deepl.com/pro-api) (לא נדרש כרטיס אשראי).
+2. צרו מפתח API מעמוד החשבון שלכם ב-DeepL. מפתחות של התוכנית החינמית תמיד מסתיימים ב-`:fx`.
+3. התוכנית החינמית כוללת **500,000 תווים בחודש** ללא עלות. לאחר שהמכסה החודשית מתמלאת, DeepL מדולג אוטומטית והכלי עובר ל-Google Translate / MyMemory עד לאיפוס המכסה.
+
+### הגדרת קובץ ה-`.env`
+
+1. העתיקו את [`.env.example`](./.env.example) לקובץ חדש בשם `.env`, באותה תיקייה שבה נמצא `hebrew_fix.ahk`.
+2. פתחו את `.env` בעורך טקסט ומלאו:
+   - `DEEPL_API_KEY` — מפתח ה-API החינמי שלכם מ-DeepL (השאירו ריק כדי לדלג על DeepL ולהתחיל מ-Google Translate).
+   - `MYMEMORY_EMAIL` — אופציונלי; האימייל שלכם, כדי להעלות את המכסה היומית החינמית של MyMemory מ-5,000 ל-50,000 תווים.
+3. שמרו את הקובץ. `.env` רשום ב-`.gitignore` ואף פעם לא נשלח ל-Git — המפתחות שלכם נשארים פרטיים על המחשב שלכם בלבד.
 
 ## הפעלה אוטומטית עם עליית המחשב
 
@@ -131,6 +204,7 @@ Free to use, modify, and distribute.
 - עובד רק על **טקסט אחיד** (כולו עברית שגויה, או כולו אנגלית שגויה). אם הבחירה כוללת גם טקסט תקין מהשפה השנייה, הוא עלול "להתקלקל" גם כן, כי הכלי לא יודע להבחין בין טעות אמיתית לטקסט תקין.
 - תומך בפריסת המקלדת הישראלית הסטנדרטית בלבד (לא בפריסות אחרות כמו פריסה פונטית).
 - נבדק על Windows בלבד.
+- `Ctrl+Alt+T` תלוי בחיבור לאינטרנט, וכברירת מחדל עשוי ליפול חזרה לנקודת הקצה הלא-רשמית וללא מפתח של Google Translate, שעלולה להיות מוגבלת בקצב או חסומה ללא התראה. לתרגום אמין יותר, מומלץ להגדיר מפתח API חינמי של DeepL.
 
 ## רישיון
 
