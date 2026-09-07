@@ -162,7 +162,10 @@ LoadEnv() {
         if !eqPos
             continue
         key := Trim(SubStr(line, 1, eqPos - 1))
-        env[key] := Trim(SubStr(line, eqPos + 1))
+        value := Trim(SubStr(line, eqPos + 1))
+        if (StrLen(value) >= 2 && ((SubStr(value, 1, 1) = '"' && SubStr(value, -1) = '"') || (SubStr(value, 1, 1) = "'" && SubStr(value, -1) = "'")))
+            value := SubStr(value, 2, StrLen(value) - 2)
+        env[key] := value
     }
     return env
 }
@@ -264,6 +267,32 @@ JsonExtractNumber(json, key) {
     return Integer(m[1])
 }
 
+; --- Decodes a WinHttpRequest's response body as UTF-8, regardless of ---
+; --- what (if anything) the server declared as its charset. This ---
+; --- matters because .ResponseText's own charset auto-detection is ---
+; --- unreliable - e.g. DeepL's response doesn't spell out "charset=utf-8" ---
+; --- in its Content-Type, which makes .ResponseText mis-decode Hebrew as ---
+; --- the system codepage. All three translation APIs return UTF-8 JSON ---
+; --- (the JSON default per RFC 8259), so forcing UTF-8 here is correct. ---
+; --- מפענחת את גוף התגובה של WinHttpRequest כ-UTF-8, בלי קשר למה ---
+; --- שהשרת הצהיר (אם בכלל) כ-charset. זה חשוב כי הזיהוי האוטומטי של ---
+; --- .ResponseText לא אמין - למשל, בתגובת DeepL אין "charset=utf-8" ---
+; --- מפורש ב-Content-Type, מה שגורם ל-.ResponseText לפענח עברית לפי ---
+; --- קידוד המערכת ולקבל ג'יבריש. כל שלושת ה-API-ים של תרגום מחזירים ---
+; --- JSON ב-UTF-8 (ברירת המחדל של JSON לפי RFC 8259), אז כפיית UTF-8 כאן נכונה. ---
+DecodeUtf8Response(req) {
+    stream := ComObject("ADODB.Stream")
+    stream.Type := 1            ; adTypeBinary
+    stream.Open()
+    stream.Write(req.ResponseBody)
+    stream.Position := 0
+    stream.Type := 2            ; adTypeText
+    stream.Charset := "utf-8"
+    text := stream.ReadText()
+    stream.Close()
+    return text
+}
+
 ; --- Sends an HTTPS GET request. Returns true on a completed HTTP ---
 ; --- exchange (any status code); false only on a transport-level ---
 ; --- failure (no network, DNS, timeout, ...). ---
@@ -282,7 +311,7 @@ HttpGet(url, &status, &responseText, headers := "") {
                 req.SetRequestHeader(name, value)
         req.Send()
         status := req.Status
-        responseText := req.ResponseText
+        responseText := DecodeUtf8Response(req)
         return true
     }
     catch
@@ -312,7 +341,7 @@ HttpPostJson(url, jsonBody, &status, &responseText, headers := "") {
                 req.SetRequestHeader(name, value)
         req.Send(jsonBody)
         status := req.Status
-        responseText := req.ResponseText
+        responseText := DecodeUtf8Response(req)
         return true
     }
     catch
