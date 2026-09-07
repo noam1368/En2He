@@ -97,7 +97,7 @@ All of this happens in a fraction of a second.
 - Only works well on **uniform text** (entirely mistyped Hebrew, or entirely mistyped English). If the selection mixes in valid text from the other language, that part may get "corrupted" too, since the tool can't distinguish a real typo from correct text.
 - Supports the standard Israeli keyboard layout only (not alternative layouts such as the phonetic one).
 - Tested on Windows only.
-- `Ctrl+Alt+T` depends on an internet connection, and by default may fall back to Google Translate's unofficial, keyless endpoint, which can be rate-limited or blocked without notice. For more reliable translations, set up a free DeepL API key.
+- `Ctrl+Alt+T` depends on an internet connection, and by default may fall back to Google Translate's or MyMemory's unofficial/free endpoints, which can be rate-limited or blocked without notice. For more reliable translations, set up a free DeepL API key.
 
 ## License
 
@@ -204,7 +204,7 @@ Free to use, modify, and distribute.
 - עובד רק על **טקסט אחיד** (כולו עברית שגויה, או כולו אנגלית שגויה). אם הבחירה כוללת גם טקסט תקין מהשפה השנייה, הוא עלול "להתקלקל" גם כן, כי הכלי לא יודע להבחין בין טעות אמיתית לטקסט תקין.
 - תומך בפריסת המקלדת הישראלית הסטנדרטית בלבד (לא בפריסות אחרות כמו פריסה פונטית).
 - נבדק על Windows בלבד.
-- `Ctrl+Alt+T` תלוי בחיבור לאינטרנט, וכברירת מחדל עשוי ליפול חזרה לנקודת הקצה הלא-רשמית וללא מפתח של Google Translate, שעלולה להיות מוגבלת בקצב או חסומה ללא התראה. לתרגום אמין יותר, מומלץ להגדיר מפתח API חינמי של DeepL.
+- `Ctrl+Alt+T` תלוי בחיבור לאינטרנט, וכברירת מחדל עשוי ליפול חזרה לנקודות הקצה הלא-רשמיות והחינמיות של Google Translate או MyMemory, שעלולות להיות מוגבלות בקצב או חסומות ללא התראה. לתרגום אמין יותר, מומלץ להגדיר מפתח API חינמי של DeepL.
 
 ## רישיון
 

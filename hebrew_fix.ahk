@@ -368,29 +368,33 @@ TranslateDeepL(text, sourceLang, targetLang, apiKey) {
     return JsonExtractString(responseText, "text")
 }
 
-; --- Priority 2: Google Translate (unofficial, keyless) web endpoint. ---
-; --- The response is a nested JSON array split into sentence "chunks" - ---
-; --- every chunk's translated segment is concatenated in order. ---
-; --- עדיפות 2: נקודת קצה לא-רשמית וללא מפתח של Google Translate. ---
-; --- התגובה היא מערך JSON מקונן, מפוצל ל"נתחי" משפטים - קטע התרגום ---
-; --- של כל נתח מחובר לפי הסדר. ---
+; --- Priority 2: Google Translate (unofficial, keyless) endpoint. Uses the ---
+; --- "dict-chrome-ex" client (from Google's Chrome Dictionary extension), ---
+; --- which returns a flat ["translated text"] array - not the split-into- ---
+; --- sentence-"chunks" nested array that the translate_a/single?client=gtx ---
+; --- endpoint returns. gtx was found to be reliably blocked with HTTP 429 ---
+; --- ("unusual traffic from your computer or network") from residential/ ---
+; --- home IPs in testing, while dict-chrome-ex responded normally - so ---
+; --- dict-chrome-ex is used here as the more reliable of the two. ---
+; --- עדיפות 2: נקודת קצה לא-רשמית וללא מפתח של Google Translate. משתמשת ---
+; --- ב-client בשם "dict-chrome-ex" (מתוסף המילון של Chrome), שמחזיר מערך ---
+; --- שטוח ["טקסט מתורגם"] - לא את המערך המקונן המפוצל ל"נתחי" משפטים ---
+; --- שמחזירה נקודת הקצה translate_a/single?client=gtx. בבדיקות, gtx נחסמה ---
+; --- באופן עקבי עם HTTP 429 ("unusual traffic from your computer or ---
+; --- network") מכתובות IP ביתיות, בעוד ש-dict-chrome-ex הגיבה כרגיל - ---
+; --- לכן dict-chrome-ex בשימוש כאן כאמינה יותר מבין השתיים. ---
 TranslateGoogle(text, sourceLang, targetLang) {
-    url := "https://translate.googleapis.com/translate_a/single"
-        . "?client=gtx&sl=" . sourceLang . "&tl=" . targetLang . "&dt=t&q=" . UrlEncode(text)
+    url := "https://clients5.google.com/translate_a/t"
+        . "?client=dict-chrome-ex&sl=" . sourceLang . "&tl=" . targetLang . "&q=" . UrlEncode(text)
     headers := Map("User-Agent", "Mozilla/5.0")
 
     ok := HttpGet(url, &status, &responseText, headers)
     if (!ok || status != 200)   ; e.g. 429 = rate limited / temporarily blocked
         return ""
 
-    result := ""
-    pos := 1
-    while (pos := RegExMatch(responseText, '\[\s*"((?:\\.|[^"\\])*)"\s*,\s*"(?:\\.|[^"\\])*"', &m, pos))
-    {
-        result .= JsonUnescape(m[1])
-        pos += StrLen(m[0])
-    }
-    return result
+    if !RegExMatch(responseText, '^\[\s*"((?:\\.|[^"\\])*)"', &m)
+        return ""
+    return JsonUnescape(m[1])
 }
 
 ; --- Priority 3: MyMemory. No key required; an optional MYMEMORY_EMAIL ---
