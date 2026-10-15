@@ -1,8 +1,14 @@
 # Hebrew Fix
 
-A lightweight Windows tool that converts selected text typed in the wrong keyboard layout — whether you typed Hebrew while your keyboard was set to English (`akuo hjuo` → `שלום רב`), or the reverse. The conversion direction is detected automatically, triggered by a single keyboard shortcut, and works in any application on your computer.
+A lightweight Windows tool for fixing selected text in any application with a single keyboard shortcut:
 
-Based on the standard Israeli keyboard layout (SI 1452).
+| Shortcut | What it does |
+|---|---|
+| `Ctrl+Alt+H` | Fixes text typed in the wrong keyboard layout — Hebrew typed while the keyboard was on English (`akuo hjuo` → `שלום רב`), or the reverse. |
+| `Ctrl+Alt+J` | Restores Hebrew that came out reversed (for example, copied from a terminal), keeping line order and mixed English/numbers readable. |
+| `Ctrl+Alt+T` | Translates Hebrew → English, or anything else → Hebrew (DeepL, with free Google / MyMemory fallback). |
+
+The direction is detected automatically. Keyboard layout conversion is based on the standard Israeli layout (SI 1452).
 
 ## Requirements
 
@@ -73,28 +79,36 @@ If all three fail (e.g. no internet connection), a "Translation failed" message 
 To have the tool start automatically every time you boot your computer:
 
 1. Press `Win + R`, type `shell:startup`, and press Enter.
-2. Copy `hebrew_fix.ahk` (or a shortcut to it) into the folder that opens.
+2. In the folder that opens, remove any older copy of `hebrew_fix.ahk`.
+3. Right-click `hebrew_fix.ahk` in the project folder → **Show more options** → **Create shortcut**, and move the new shortcut into the Startup folder.
 
-## Changing the keyboard shortcut
+Use a **shortcut, not a copy**: a copy doesn't get later updates, and it can't find your `.env` file (the script looks for it in its own folder), so translation falls back to the free services. Two copies at different paths also run side by side, with conflicting shortcuts.
 
-The default shortcut is `Ctrl+Alt+H`. If it conflicts with another shortcut you use, you can easily change it: open `hebrew_fix.ahk` in a text editor and find the line
+## Changing the keyboard shortcuts
+
+If a shortcut conflicts with another one you use, open `hebrew_fix.ahk` in a text editor and change its line:
 
 ```autohotkey
-^!h::
+^!h::   ; Ctrl+Alt+H — fix keyboard layout
+^!j::   ; Ctrl+Alt+J — restore reversed text
+^!t::   ; Ctrl+Alt+T — translate
 ```
 
-`^` = Ctrl, `!` = Alt, `+` = Shift. For example, to switch to `Ctrl+Shift+H`, change the line to `^+h::`.
+`^` = Ctrl, `!` = Alt, `+` = Shift. For example, to switch `Ctrl+Alt+H` to `Ctrl+Shift+H`, change `^!h::` to `^+h::`. Save, then double-click the file again to reload it.
 
 ## How it works
 
-The script:
+Each shortcut:
 1. Saves your current clipboard content (so it isn't lost).
 2. Copies the selected text (`Ctrl+C`).
-3. Checks whether the text contains Hebrew letters, and converts it using a key-mapping table that matches the standard Israeli layout.
-4. Pastes the converted text over the original selection (`Ctrl+V`).
+3. Transforms it:
+   - `Ctrl+Alt+H` maps each key to the other layout, using a table that matches the standard Israeli layout.
+   - `Ctrl+Alt+J` processes each line separately. It works out which parts of the line were flipped (Hebrew) and which stayed readable (English, numbers), following the same Unicode bidirectional rules the terminal used to display it, and undoes that reordering.
+   - `Ctrl+Alt+T` sends the text to the first translation service that answers.
+4. Pastes the result over the original selection (`Ctrl+V`).
 5. Restores your original clipboard content.
 
-All of this happens in a fraction of a second.
+H and J happen in a fraction of a second. T takes as long as the translation service does.
 
 ## Known limitations
 
@@ -102,6 +116,19 @@ All of this happens in a fraction of a second.
 - Supports the standard Israeli keyboard layout only (not alternative layouts such as the phonetic one).
 - Tested on Windows only.
 - `Ctrl+Alt+T` depends on an internet connection, and by default may fall back to Google Translate's or MyMemory's unofficial/free endpoints, which can be rate-limited or blocked without notice. For more reliable translations, set up a free DeepL API key.
+- `Ctrl+Alt+J` can't restore a paragraph that wrapped onto several rows in the terminal (see above). It also can't tell apart a Hebrew line that ends in an English word without closing punctuation from a line that starts with that word, since both copy identically; it assumes the latter.
+
+## Project status
+
+What has been built so far:
+1. `Ctrl+Alt+H` — keyboard layout fix (the original tool).
+2. `Ctrl+Alt+J` — first as a plain character reversal, then rewritten to work line by line and keep English, numbers and bullets readable inside Hebrew.
+3. `Ctrl+Alt+T` — translation with automatic fallback DeepL → Google → MyMemory, keys kept in a private `.env`.
+4. Fixes: Hebrew in translation responses no longer comes out garbled, quoted `.env` values are accepted, and Google Translate uses an endpoint that doesn't return "Too many requests" (429).
+
+Still open:
+- The `Ctrl+Alt+J` and `Ctrl+Alt+H` limitations listed above.
+- No automated tests in the repo yet; the `Ctrl+Alt+J` logic was tested with a separate script.
 
 ## License
 
@@ -111,9 +138,15 @@ Free to use, modify, and distribute.
 
 # Hebrew Fix (עברית)
 
-תוסף קטן ל-Windows שממיר טקסט מסומן שהוקלד בטעות בפריסת מקלדת לא נכונה — בין אם הקלדת עברית כשהמקלדת הייתה על אנגלית (`akuo hjuo` → `שלום רב`), או להפך (עברית כשהתכוונת לאנגלית). ההמרה מתבצעת אוטומטית לפי כיוון הטקסט, בלחיצת קיצור מקלדת אחת, בכל אפליקציה במחשב.
+כלי קטן ל-Windows שמתקן טקסט מסומן בכל אפליקציה, בלחיצת קיצור מקלדת אחת:
 
-מבוסס על פריסת המקלדת הישראלית הסטנדרטית (SI 1452).
+| קיצור | מה הוא עושה |
+|---|---|
+| `Ctrl+Alt+H` | מתקן טקסט שהוקלד בפריסת מקלדת לא נכונה: עברית שהוקלדה כשהמקלדת הייתה על אנגלית (`akuo hjuo` → `שלום רב`), או להפך. |
+| `Ctrl+Alt+J` | משחזר עברית שיצאה הפוכה (למשל כשמעתיקים מטרמינל), תוך שמירה על סדר השורות ועל אנגלית ומספרים קריאים. |
+| `Ctrl+Alt+T` | מתרגם עברית לאנגלית, וכל דבר אחר לעברית (DeepL, ובגיבוי Google / MyMemory החינמיים). |
+
+הכיוון מזוהה אוטומטית. המרת פריסת המקלדת מבוססת על הפריסה הישראלית הסטנדרטית (SI 1452).
 
 ## דרישות
 
@@ -184,28 +217,36 @@ Free to use, modify, and distribute.
 כדי שהכלי ירוץ אוטומטית בכל הפעלה של המחשב:
 
 1. לחצו `Win + R`, הקלידו `shell:startup` ולחצו Enter.
-2. העתיקו את קובץ `hebrew_fix.ahk` (או קיצור דרך אליו) לתוך התיקייה שנפתחה.
+2. בתיקייה שנפתחה, הוציאו משם כל עותק ישן של `hebrew_fix.ahk`.
+3. בתיקיית הפרויקט, לחצו קליק ימני על `hebrew_fix.ahk` ← **Show more options** ← **Create shortcut**, והעבירו את קיצור הדרך שנוצר לתיקיית ה-Startup.
 
-## שינוי קיצור המקלדת
+השתמשו ב**קיצור דרך ולא בעותק**: עותק לא מקבל עדכונים, והוא גם לא ימצא את קובץ ה-`.env` (הסקריפט מחפש אותו בתיקייה שבה הוא נמצא), ולכן התרגום יעבור לשירותים החינמיים. בנוסף, שני עותקים בנתיבים שונים רצים במקביל, והקיצורים שלהם מתנגשים.
 
-הקיצור המוגדר כברירת מחדל הוא `Ctrl+Alt+H`. אם הוא מתנגש עם קיצור אחר שאתם משתמשים בו, אפשר לשנות אותו בקלות: פתחו את `hebrew_fix.ahk` בעורך טקסט וחפשו את השורה
+## שינוי קיצורי המקלדת
+
+אם קיצור מתנגש עם קיצור אחר שאתם משתמשים בו, פתחו את `hebrew_fix.ahk` בעורך טקסט ושנו את השורה שלו:
 
 ```autohotkey
-^!h::
+^!h::   ; Ctrl+Alt+H — תיקון פריסת מקלדת
+^!j::   ; Ctrl+Alt+J — שחזור טקסט הפוך
+^!t::   ; Ctrl+Alt+T — תרגום
 ```
 
-`^` = Ctrl, `!` = Alt, `+` = Shift. לדוגמה, כדי לעבור ל-`Ctrl+Shift+H` שנו את השורה ל-`^+h::`.
+`^` = Ctrl, `!` = Alt, `+` = Shift. לדוגמה, כדי להחליף את `Ctrl+Alt+H` ב-`Ctrl+Shift+H`, שנו את `^!h::` ל-`^+h::`. שמרו, ואז לחצו שוב לחיצה כפולה על הקובץ כדי לטעון אותו מחדש.
 
 ## איך זה עובד (טכני)
 
-הסקריפט:
+כל קיצור:
 1. שומר את תוכן הקליפבורד הנוכחי שלכם (כדי לא לאבד אותו).
 2. מעתיק את הטקסט המסומן (`Ctrl+C`).
-3. בודק אם הטקסט מכיל אותיות עבריות, וממיר אותו לפי טבלת מיפוי מקשים תואמת לפריסה הישראלית הסטנדרטית.
-4. מדביק את הטקסט המומר במקום המקורי (`Ctrl+V`).
+3. ממיר אותו:
+   - `Ctrl+Alt+H` ממפה כל מקש לפריסה השנייה, לפי טבלה שתואמת לפריסה הישראלית הסטנדרטית.
+   - `Ctrl+Alt+J` מטפל בכל שורה בנפרד. הוא מזהה אילו חלקים בשורה התהפכו (עברית) ואילו נשארו קריאים (אנגלית, מספרים), לפי אותם כללי כיווניות של Unicode שבהם הטרמינל השתמש כדי להציג אותה, ומבטל את ההיפוך.
+   - `Ctrl+Alt+T` שולח את הטקסט לשירות התרגום הראשון שעונה.
+4. מדביק את התוצאה במקום הבחירה המקורית (`Ctrl+V`).
 5. משחזר את תוכן הקליפבורד המקורי שלכם.
 
-כל זה קורה תוך שבריר שנייה.
+H ו-J קורים תוך שבריר שנייה. T לוקח כמה שלוקח לשירות התרגום.
 
 ## מגבלות ידועות
 
@@ -213,6 +254,19 @@ Free to use, modify, and distribute.
 - תומך בפריסת המקלדת הישראלית הסטנדרטית בלבד (לא בפריסות אחרות כמו פריסה פונטית).
 - נבדק על Windows בלבד.
 - `Ctrl+Alt+T` תלוי בחיבור לאינטרנט, וכברירת מחדל עשוי ליפול חזרה לנקודות הקצה הלא-רשמיות והחינמיות של Google Translate או MyMemory, שעלולות להיות מוגבלות בקצב או חסומות ללא התראה. לתרגום אמין יותר, מומלץ להגדיר מפתח API חינמי של DeepL.
+- `Ctrl+Alt+J` לא יכול לשחזר פסקה שנשברה בטרמינל לכמה שורות מסך (ראו למעלה). הוא גם לא יכול להבחין בין שורה עברית שמסתיימת במילה באנגלית בלי סימן פיסוק בסוף, לבין שורה שמתחילה באותה מילה, כי שתיהן מועתקות באותה צורה. במקרה כזה הוא מניח את האפשרות השנייה.
+
+## מצב הפרויקט
+
+מה נבנה עד עכשיו:
+1. `Ctrl+Alt+H`: תיקון פריסת מקלדת (הכלי המקורי).
+2. `Ctrl+Alt+J`: בהתחלה היפוך תווים פשוט, ואחר כך נכתב מחדש כדי לעבוד שורה אחר שורה ולשמור על אנגלית, מספרים ותבליטים קריאים בתוך עברית.
+3. `Ctrl+Alt+T`: תרגום עם מעבר אוטומטי DeepL ← Google ← MyMemory, כשהמפתחות שמורים בקובץ `.env` פרטי.
+4. תיקונים: עברית בתשובות התרגום כבר לא יוצאת משובשת, ערכים עם מירכאות ב-`.env` מתקבלים, ו-Google Translate עובד דרך כתובת שלא מחזירה שגיאת "יותר מדי בקשות" (429).
+
+מה עדיין פתוח:
+- המגבלות של `Ctrl+Alt+J` ו-`Ctrl+Alt+H` שמפורטות למעלה.
+- אין עדיין בדיקות אוטומטיות בריפו. הלוגיקה של `Ctrl+Alt+J` נבדקה עם סקריפט נפרד.
 
 ## רישיון
 
