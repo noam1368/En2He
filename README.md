@@ -30,7 +30,11 @@ The selected text is converted automatically:
 
 ### Reverse character order — `Ctrl+Alt+J`
 
-Reverses the character order of the selection — useful for text that displays back-to-front due to an RTL/LTR display bug.
+Reverses the character order of the selection — useful for text that displays back-to-front due to an RTL/LTR display bug (for example, Hebrew copied from a terminal).
+- Works line by line, so multi-line text keeps its line and paragraph order.
+- English words, numbers and list bullets (`-`, `*`, `1.`) inside Hebrew text stay readable instead of being flipped.
+- The `│` border of text copied from a terminal box is removed.
+- Limitation: a paragraph that wrapped onto several rows in the terminal is copied as one line, with each row reversed separately and no marker where one row ends. The text alone doesn't say where to split it, so such paragraphs come out with their parts in the wrong order. To copy a long answer from Claude Code, use the `/copy` command instead, which copies the original text.
 
 ### Translate — `Ctrl+Alt+T`
 
@@ -137,7 +141,11 @@ Free to use, modify, and distribute.
 
 ### היפוך סדר תווים — `Ctrl+Alt+J`
 
-הופך את סדר התווים בבחירה — שימושי לטקסט שמוצג הפוך עקב תקלת תצוגה RTL/LTR.
+הופך את סדר התווים בבחירה — שימושי לטקסט שמוצג הפוך עקב תקלת תצוגה RTL/LTR (למשל, עברית שהועתקה מטרמינל).
+- עובד שורה אחר שורה, כך שטקסט מרובה שורות שומר על סדר השורות והפסקאות.
+- מילים באנגלית, מספרים ותבליטים (`-`, `*`, `1.`) בתוך טקסט עברי נשארים קריאים ולא מתהפכים.
+- קו המסגרת `│` של טקסט שהועתק מתוך מסגרת בטרמינל מוסר.
+- מגבלה: פסקה שנשברה בטרמינל לכמה שורות מסך מועתקת כשורה אחת, כשכל שורת מסך הפוכה בנפרד ואין שום סימן היכן שורה אחת נגמרת. מהטקסט עצמו אי אפשר לדעת היכן לחלק אותה, ולכן חלקי פסקה כזו יוצאים בסדר שגוי. כדי להעתיק תשובה ארוכה מ-Claude Code, השתמשו במקום זה בפקודה `/copy`, שמעתיקה את הטקסט המקורי.
 
 ### תרגום — `Ctrl+Alt+T`
 

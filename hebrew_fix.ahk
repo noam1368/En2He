@@ -78,6 +78,240 @@ ReverseText(text) {
     return result
 }
 
+; ------------------------------------------------------------
+;  Ctrl+Alt+J restores text that a terminal displayed in "visual" order:
+;  each screen row was reordered with the Unicode bidi algorithm (UBA),
+;  so Hebrew is reversed while English words and numbers are not. The
+;  reordering used here (UBA rule L2) is its own inverse, so applying it
+;  to the visual text with the same embedding levels restores the
+;  original. Levels are resolved with a simplified UBA (rules W4-W7, N1-N2,
+;  I1-I2), which is what decides where hyphens, colons and spaces between
+;  Hebrew and English belong.
+;  Ctrl+Alt+J משחזר טקסט שטרמינל הציג ב"סדר חזותי": כל שורת מסך סודרה
+;  לפי אלגוריתם הדו-כיווניות של Unicode (UBA), כך שהעברית התהפכה ואילו
+;  מילים באנגלית ומספרים לא. הסידור מחדש כאן (כלל L2) הופך את עצמו, ולכן
+;  הפעלתו על הטקסט החזותי עם אותן רמות הטבעה משחזרת את המקור. הרמות
+;  נקבעות לפי גרסה מפושטת של UBA (כללים W4-W7, N1-N2, I1-I2), והיא שקובעת
+;  לאיזה צד שייכים מקפים, נקודתיים ורווחים שבין עברית לאנגלית.
+; ------------------------------------------------------------
+
+; --- Splits text into characters, keeping surrogate pairs (emoji) whole ---
+; --- מפצלת טקסט לתווים, בלי לשבור זוגות surrogate (אימוג'י) ---
+SplitChars(text) {
+    chars := []
+    Loop Parse, text
+    {
+        code := Ord(A_LoopField)
+        if (code >= 0xDC00 && code <= 0xDFFF && chars.Length)
+            chars[-1] .= A_LoopField
+        else
+            chars.Push(A_LoopField)
+    }
+    return chars
+}
+
+; --- Bidi class of a character: R (Hebrew), L (other letters), EN (digit), ---
+; --- ES/CS/ET (number separators and signs) or N (neutral) ---
+; --- המחלקה הדו-כיוונית של תו: R (עברית), L (אותיות אחרות), EN (ספרה), ---
+; --- ES/CS/ET (מפרידים וסימנים של מספרים) או N (ניטרלי) ---
+BidiClass(ch) {
+    if RegExMatch(ch, "[\x{0590}-\x{05FF}\x{FB1D}-\x{FB4F}]")
+        return "R"
+    if RegExMatch(ch, "^[0-9]$")
+        return "EN"
+    if (ch = "+" || ch = "-")
+        return "ES"
+    if InStr(",.:/", ch)
+        return "CS"
+    if InStr("#$%°", ch)
+        return "ET"
+    if RegExMatch(ch, "^\p{L}")
+        return "L"
+    return "N"
+}
+
+; --- Decides the row's base direction. A left-to-right row always shows ---
+; --- its first letter at the far left; a right-to-left row shows its ---
+; --- first letter at the far right. When both readings fit (English at ---
+; --- the left, Hebrew at the right), sentence punctuation decides: it ---
+; --- belongs to the logical end, which a right-to-left row puts on the left. ---
+; --- קובעת את כיוון הבסיס של השורה. שורה משמאל לימין תמיד מציגה את ---
+; --- האות הראשונה שלה בקצה השמאלי; שורה מימין לשמאל מציגה אותה בקצה ---
+; --- הימני. כששתי הקריאות אפשריות (אנגלית משמאל, עברית מימין), סימן ---
+; --- הפיסוק מכריע: הוא שייך לסוף הלוגי, ששורה מימין לשמאל מציבה משמאל. ---
+IsRtlRow(chars, types) {
+    first := 0, last := 0
+    for i, t in types
+        if (t = "L" || t = "R")
+        {
+            if !first
+                first := i
+            last := i
+        }
+    if !first
+        return false
+    if (types[first] = "R")
+        return true
+    if (types[last] = "L")
+        return false
+    loop first - 1
+        if InStr(".!?:;,", chars[A_Index])
+            return true
+    return false
+}
+
+; --- Resolves the embedding level of every character of a visual row ---
+; --- קובעת את רמת ההטבעה של כל תו בשורה חזותית ---
+BidiLevels(chars, &rtl) {
+    n := chars.Length
+    t := []
+    for ch in chars
+        t.Push(BidiClass(ch))
+    rtl := IsRtlRow(chars, t)
+
+    ; W4: one separator between two digits is part of the number (1.5, 3-4)
+    loop n - 2
+    {
+        i := A_Index + 1
+        if ((t[i] = "ES" || t[i] = "CS") && t[i - 1] = "EN" && t[i + 1] = "EN")
+            t[i] := "EN"
+    }
+    ; W5: signs touching a number are part of it (50%, $5)
+    i := 1
+    while (i <= n)
+    {
+        if (t[i] != "ET")
+        {
+            i += 1
+            continue
+        }
+        j := i
+        while (j < n && t[j + 1] = "ET")
+            j += 1
+        if ((i > 1 && t[i - 1] = "EN") || (j < n && t[j + 1] = "EN"))
+            loop j - i + 1
+                t[i + A_Index - 1] := "EN"
+        i := j + 1
+    }
+    ; W6: any other separator or sign is neutral
+    for i, ty in t
+        if (ty = "ES" || ty = "CS" || ty = "ET")
+            t[i] := "N"
+    ; W7: a number that follows English is treated as English
+    prevStrong := ""
+    for i, ty in t
+    {
+        if (ty = "L" || ty = "R")
+            prevStrong := ty
+        else if (ty = "EN" && (prevStrong = "L" || (prevStrong = "" && !rtl)))
+            t[i] := "EN_L"
+    }
+
+    ; N1/N2: a neutral takes the direction of its surroundings when both
+    ; sides agree (numbers count as R), otherwise the row's direction
+    edge := rtl ? "R" : "L"
+    strongBefore := [], dir := edge
+    for ty in t
+    {
+        if (ty != "N")
+            dir := (ty = "L" || ty = "EN_L") ? "L" : "R"
+        strongBefore.Push(dir)
+    }
+    strongAfter := [], dir := edge
+    loop n
+    {
+        ty := t[n - A_Index + 1]
+        if (ty != "N")
+            dir := (ty = "L" || ty = "EN_L") ? "L" : "R"
+        strongAfter.InsertAt(1, dir)
+    }
+
+    ; I1/I2: levels relative to the row's direction
+    levels := []
+    for i, ty in t
+    {
+        if (ty = "N")
+            ty := (strongBefore[i] = strongAfter[i]) ? strongBefore[i] : edge
+        if rtl
+            levels.Push(ty = "R" ? 1 : 2)
+        else
+            levels.Push(ty = "L" || ty = "EN_L" ? 0 : ty = "EN" ? 2 : 1)
+    }
+    return levels
+}
+
+; --- UBA rule L2: from the highest level down to 1, reverse every run ---
+; --- of characters at that level or higher ---
+; --- כלל L2 של UBA: מהרמה הגבוהה ביותר ועד 1, הופכת כל רצף תווים ---
+; --- שנמצא ברמה הזו או מעליה ---
+BidiReorder(chars, levels) {
+    n := chars.Length
+    maxLevel := 0
+    for lv in levels
+        maxLevel := Max(maxLevel, lv)
+    lvl := maxLevel
+    while (lvl >= 1)
+    {
+        i := 1
+        while (i <= n)
+        {
+            if (levels[i] < lvl)
+            {
+                i += 1
+                continue
+            }
+            j := i
+            while (j < n && levels[j + 1] >= lvl)
+                j += 1
+            a := i, b := j
+            while (a < b)
+            {
+                tmp := chars[a], chars[a] := chars[b], chars[b] := tmp
+                tmp := levels[a], levels[a] := levels[b], levels[b] := tmp
+                a += 1, b -= 1
+            }
+            i := j + 1
+        }
+        lvl -= 1
+    }
+    result := ""
+    for ch in chars
+        result .= ch
+    return result
+}
+
+; --- Restores one back-to-front row, keeping list bullets and edge ---
+; --- whitespace in place. Text in a terminal box loses its "│" border. ---
+; --- משחזרת שורה הפוכה אחת, ומשאירה תבליטים ורווחים בקצוות במקומם. ---
+; --- טקסט מתוך מסגרת של טרמינל מאבד את קו המסגרת "│". ---
+FixReversedLine(line) {
+    line := RegExReplace(line, "^\s*│ ?|\s*│\s*$")
+    RegExMatch(line, "^(\s*(?:(?:[-*•]|\d+[.)])\s+)?)(.*?)(\s*)$", &m)
+    chars := SplitChars(m[2])
+    levels := BidiLevels(chars, &rtl)
+    return m[1] . BidiReorder(chars, levels) . m[3]
+}
+
+; --- Fixes back-to-front text line by line, keeping the line order. ---
+; --- Text without Hebrew is simply reversed character by character. ---
+; --- מתקנת טקסט הפוך שורה אחר שורה, תוך שמירה על סדר השורות. ---
+; --- טקסט בלי עברית פשוט מתהפך תו אחר תו. ---
+FixReversedText(text) {
+    hasHebrew := ContainsHebrew(text)
+    lines := StrSplit(text, "`n")
+    for i, line in lines
+    {
+        cr := (SubStr(line, -1) = "`r") ? "`r" : ""
+        if cr
+            line := SubStr(line, 1, -1)
+        lines[i] := (hasHebrew ? FixReversedLine(line) : ReverseText(line)) . cr
+    }
+    result := ""
+    for i, line in lines
+        result .= (i > 1 ? "`n" : "") . line
+    return result
+}
+
 ; --- Shows a short tooltip near the cursor that clears itself ---
 ; --- מציגה הודעה זמנית ליד הסמן שנעלמת מעצמה ---
 ShowTooltip(message, durationMs := 1500) {
@@ -479,7 +713,7 @@ TranslateText(text, fromHebrew) {
     if (original = "")
         return
 
-    converted := ReverseText(original)
+    converted := FixReversedText(original)
     ReplaceSelection(converted, savedClip)
 }
 
