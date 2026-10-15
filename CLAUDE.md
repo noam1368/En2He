@@ -65,9 +65,12 @@ There is no test suite in the repo. The J logic was tested with a throwaway AHK 
 5. `7ee1efd` — fix Google 429 by switching to the `dict-chrome-ex` endpoint.
 6. `300e1c5` — `Ctrl+Alt+J` rewritten: per-line, Bidi-based restore of mixed Hebrew/English.
 
-## Open items
+## Status
 
-- **Autostart cleanup (user's machine):** the Startup folder held an old standalone copy of `hebrew_fix.ahk` (only `Ctrl+Alt+H`) that runs alongside this version. It should be replaced with a shortcut to this file. Not yet done; the user was given the steps.
+Complete for now (2026-10-15). All three hotkeys were tested by the user and work. On the user's machine, autostart is a shortcut to this file in `shell:startup` (the old standalone copy that used to be there was removed).
+
+## Open items (known limitations, nothing in progress)
+
 - **J: wrapped paragraphs** can't be restored: soft-wrapped rows are joined on copy with no separator, so the split point is lost. Workaround: Claude Code's `/copy`. Documented in README.
 - **J: ambiguity** — a Hebrew row ending in an English word with no closing punctuation looks the same, once copied, as a row starting with that word. It is restored as the latter.
 - **H:** mixed text (valid text from the other language inside the selection) gets converted too.

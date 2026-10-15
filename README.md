@@ -120,13 +120,15 @@ H and J happen in a fraction of a second. T takes as long as the translation ser
 
 ## Project status
 
-What has been built so far:
+The project is complete for now: all three shortcuts work and have been tested in everyday use.
+
+What has been built:
 1. `Ctrl+Alt+H` — keyboard layout fix (the original tool).
 2. `Ctrl+Alt+J` — first as a plain character reversal, then rewritten to work line by line and keep English, numbers and bullets readable inside Hebrew.
 3. `Ctrl+Alt+T` — translation with automatic fallback DeepL → Google → MyMemory, keys kept in a private `.env`.
 4. Fixes: Hebrew in translation responses no longer comes out garbled, quoted `.env` values are accepted, and Google Translate uses an endpoint that doesn't return "Too many requests" (429).
 
-Still open:
+Possible future work:
 - The `Ctrl+Alt+J` and `Ctrl+Alt+H` limitations listed above.
 - No automated tests in the repo yet; the `Ctrl+Alt+J` logic was tested with a separate script.
 
@@ -258,13 +260,15 @@ H ו-J קורים תוך שבריר שנייה. T לוקח כמה שלוקח ל�
 
 ## מצב הפרויקט
 
-מה נבנה עד עכשיו:
+הפרויקט הושלם בשלב זה: שלושת הקיצורים עובדים ונבדקו בשימוש יומיומי.
+
+מה נבנה:
 1. `Ctrl+Alt+H`: תיקון פריסת מקלדת (הכלי המקורי).
 2. `Ctrl+Alt+J`: בהתחלה היפוך תווים פשוט, ואחר כך נכתב מחדש כדי לעבוד שורה אחר שורה ולשמור על אנגלית, מספרים ותבליטים קריאים בתוך עברית.
 3. `Ctrl+Alt+T`: תרגום עם מעבר אוטומטי DeepL ← Google ← MyMemory, כשהמפתחות שמורים בקובץ `.env` פרטי.
 4. תיקונים: עברית בתשובות התרגום כבר לא יוצאת משובשת, ערכים עם מירכאות ב-`.env` מתקבלים, ו-Google Translate עובד דרך כתובת שלא מחזירה שגיאת "יותר מדי בקשות" (429).
 
-מה עדיין פתוח:
+אפשר לשפר בעתיד:
 - המגבלות של `Ctrl+Alt+J` ו-`Ctrl+Alt+H` שמפורטות למעלה.
 - אין עדיין בדיקות אוטומטיות בריפו. הלוגיקה של `Ctrl+Alt+J` נבדקה עם סקריפט נפרד.
 
