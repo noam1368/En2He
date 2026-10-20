@@ -6,7 +6,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 |---|---|---|---|---|---|---|---|---|
 | 1 | 2026-10-20 | Tiberias | 5,350 | i5-13600KF | RTX 3080 Zotac AMP Holo (10 or 12 GB?) | 32 GB DDR5 | 78 (10 GB) / 83 (12 GB) | Open questions |
 | 2 | 2026-10-20 | Ashkelon | 2,700 | i5-12400F | RTX 3060 Ti (8 GB) | 16 GB DDR4 | 74–76 | Open questions |
-| 3 | 2026-10-20 | ? | ? | i5-14400F | Gigabyte RTX 3070 Ti Gaming OC (8 GB) | 16 GB DDR4 | 69 (no price) | Need price |
+| 3 | 2026-10-20 | Bat Yam | 4,300 | i5-14400F | Gigabyte RTX 3070 Ti Gaming OC (8 GB) | 16 GB DDR4 | 77 | Open questions |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -33,7 +33,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Notes:** a good base for the plan of selling the 3060 Ti and adding an RTX 5060 Ti 16GB (about 3,000 ILS). That comes to about 5,700 minus whatever the 3060 Ti sells for.
 - **Ask:** How many RAM slots, and how many are free? Exact PSU model and age? Age and warranty? Used for mining?
 
-## 3. City and price unknown: i5-14400F + RTX 3070 Ti
+## 3. Bat Yam, 4,300 ILS: i5-14400F + RTX 3070 Ti
 
 - **CPU:** i5-14400F (3-year warranty), cooled by a Cooler Master Hyper 212 3DHP ARGB.
 - **Motherboard:** Gigabyte B760M DS3H DDR4 (4 slots; 3-year warranty).
@@ -43,5 +43,5 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **PSU:** Antec 750W Gold, semi-modular (5-year warranty).
 - **Case:** Antec CX300 ARGB.
 - **OS:** Windows 11 Pro.
-- **Notes:** everything is new except the GPU, and it comes with warranties. Same 8 GB VRAM limit as #2. 14th-gen CPU, so check the BIOS fix.
-- **Ask:** Price? Seller is a store or a private person? City?
+- **Notes:** everything is new except the GPU, and it comes with warranties. Same 8 GB VRAM limit as #2, but 1,600 ILS more; the extra buys warranty, a newer CPU, a 1 TB SSD and a better PSU. Upgrading to a 16 GB card would cost about 7,300 minus the 3070 Ti's resale, well over budget. 14th-gen CPU, so check the BIOS fix.
+- **Ask:** Is the seller a store or a private person (who honors the warranties)? Is the BIOS updated? Is the GPU warranty in writing?
