@@ -23,13 +23,15 @@ A single AutoHotkey v2 script for Windows that fixes selected text in any applic
 
 All three copy the selection, transform it, paste it back and restore the clipboard (`GetSelectedText` / `ReplaceSelection`).
 
+They are AHK custom combinations (`CapsLock & h::` etc.), so CapsLock is a prefix key and loses its own function. A separate `CapsLock::` hotkey gives it back: tapping CapsLock alone toggles Caps Lock on release, only if no other key was pressed while it was held. Until 2026-10-20 the hotkeys were `Ctrl+Alt+H/J/T`; the user wanted to stop pressing Alt.
+
 | Hotkey | What it does | Main code |
 |---|---|---|
-| `Ctrl+Alt+H` | Fix wrong keyboard layout (Hebrew ↔ English, SI 1452). Direction: Hebrew present → to English | `EnToHe`/`HeToEn`, `ConvertText` |
-| `Ctrl+Alt+J` | Restore Hebrew copied reversed from a terminal, line by line | `FixReversedText` and the `Bidi*` functions |
-| `Ctrl+Alt+T` | Translate (Hebrew → English, otherwise → Hebrew) | `TranslateText` → DeepL → Google → MyMemory |
+| `CapsLock+H` | Fix wrong keyboard layout (Hebrew ↔ English, SI 1452). Direction: Hebrew present → to English | `EnToHe`/`HeToEn`, `ConvertText` |
+| `CapsLock+J` | Restore Hebrew copied reversed from a terminal, line by line | `FixReversedText` and the `Bidi*` functions |
+| `CapsLock+T` | Translate (Hebrew → English, otherwise → Hebrew) | `TranslateText` → DeepL → Google → MyMemory |
 
-### Ctrl+Alt+J design
+### CapsLock+J design
 
 The terminal (Claude Code) word-wraps a paragraph, then reorders each screen row on its own with the Unicode Bidi Algorithm. Copying gives the visual order. The L2 reorder is its own inverse, so applying the same levels to the copied row restores the logical text.
 
@@ -39,7 +41,7 @@ The terminal (Claude Code) word-wraps a paragraph, then reorders each screen row
 - `IsRtlRow` picks row direction: leftmost strong R → RTL; rightmost strong L → LTR; sentence punctuation before the first strong char → RTL; else LTR.
 - `SplitChars` keeps surrogate pairs (emoji) intact.
 
-### Ctrl+Alt+T design
+### CapsLock+T design
 
 - DeepL API Free (only when `DEEPL_API_KEY` is set) → Google (`clients5.google.com` `dict-chrome-ex` endpoint; the old `translate_a/single` endpoint returned 429) → MyMemory (checks `responseStatus`).
 - Responses are decoded as UTF-8 via `ADODB.Stream` (`DecodeUtf8Response`) to avoid Hebrew mojibake.
@@ -68,6 +70,8 @@ There is no test suite in the repo. The J logic was tested with a throwaway AHK 
 ## Status
 
 Complete for now (2026-10-15). All three hotkeys were tested by the user and work. On the user's machine, autostart is a shortcut to this file in `shell:startup` (the old standalone copy that used to be there was removed).
+
+2026-10-20: hotkeys moved from `Ctrl+Alt` to `CapsLock`. This was written in a cloud session without AutoHotkey, so the CapsLock version has not been run or tested by the user yet.
 
 ## Open items (known limitations, nothing in progress)
 

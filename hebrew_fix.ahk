@@ -2,27 +2,27 @@
 ;  Hebrew Fix - Converts selected text typed in the wrong
 ;  keyboard layout (Hebrew <-> English), based on the
 ;  standard Israeli keyboard layout (SI 1452).
-;  Also reverses the character order of selected text, for
-;  text that appears back-to-front (e.g. an RTL/LTR display bug).
+;  Also restores selected text that came out back-to-front
+;  (e.g. Hebrew copied from a terminal).
 ;  Also auto-translates selected text between Hebrew and English,
 ;  using DeepL / Google Translate / MyMemory as fallbacks.
 ;
-;  Usage: select text in any application and press Ctrl+Alt+H
-;         to fix the keyboard layout, Ctrl+Alt+J to reverse
-;         the character order, or Ctrl+Alt+T to translate.
+;  Usage: select text in any application, hold CapsLock and press
+;         H to fix the keyboard layout, J to restore reversed
+;         text, or T to translate.
 ;  Requires AutoHotkey v2   https://www.autohotkey.com
 ;
 ;  --- בעברית ---
 ;  Hebrew Fix - ממיר טקסט מסומן שהוקלד בטעות בפריסת מקלדת שגויה
 ;  (עברית <-> אנגלית), לפי פריסת המקלדת הישראלית הסטנדרטית (SI 1452).
-;  כמו כן הופך את סדר התווים בטקסט מסומן, עבור טקסט שמוצג הפוך
-;  (למשל עקב תקלת תצוגה RTL/LTR).
+;  כמו כן משחזר טקסט מסומן שיצא הפוך (למשל עברית שהועתקה
+;  מטרמינל).
 ;  כמו כן מתרגם אוטומטית טקסט מסומן בין עברית לאנגלית, באמצעות
 ;  DeepL / Google Translate / MyMemory כגיבוי זה לזה.
 ;
-;  שימוש: סמנו טקסט בכל אפליקציה ולחצו Ctrl+Alt+H
-;         לתיקון פריסת המקלדת, Ctrl+Alt+J להיפוך סדר התווים,
-;         או Ctrl+Alt+T לתרגום.
+;  שימוש: סמנו טקסט בכל אפליקציה, החזיקו CapsLock ולחצו
+;         H לתיקון פריסת המקלדת, J לשחזור טקסט הפוך,
+;         או T לתרגום.
 ;  דורש AutoHotkey v2   https://www.autohotkey.com
 ; ============================================================
 
@@ -79,7 +79,7 @@ ReverseText(text) {
 }
 
 ; ------------------------------------------------------------
-;  Ctrl+Alt+J restores text that a terminal displayed in "visual" order:
+;  CapsLock+J restores text that a terminal displayed in "visual" order:
 ;  each screen row was reordered with the Unicode bidi algorithm (UBA),
 ;  so Hebrew is reversed while English words and numbers are not. The
 ;  reordering used here (UBA rule L2) is its own inverse, so applying it
@@ -87,7 +87,7 @@ ReverseText(text) {
 ;  original. Levels are resolved with a simplified UBA (rules W4-W7, N1-N2,
 ;  I1-I2), which is what decides where hyphens, colons and spaces between
 ;  Hebrew and English belong.
-;  Ctrl+Alt+J משחזר טקסט שטרמינל הציג ב"סדר חזותי": כל שורת מסך סודרה
+;  CapsLock+J משחזר טקסט שטרמינל הציג ב"סדר חזותי": כל שורת מסך סודרה
 ;  לפי אלגוריתם הדו-כיווניות של Unicode (UBA), כך שהעברית התהפכה ואילו
 ;  מילים באנגלית ומספרים לא. הסידור מחדש כאן (כלל L2) הופך את עצמו, ולכן
 ;  הפעלתו על הטקסט החזותי עם אותן רמות הטבעה משחזרת את המקור. הרמות
@@ -371,8 +371,8 @@ ReplaceSelection(text, savedClip) {
 }
 
 ; ============================================================
-;  Translation (Ctrl+Alt+T) - DeepL / Google / MyMemory fallback chain
-;  תרגום (Ctrl+Alt+T) - שרשרת גיבוי DeepL / Google / MyMemory
+;  Translation (CapsLock+T) - DeepL / Google / MyMemory fallback chain
+;  תרגום (CapsLock+T) - שרשרת גיבוי DeepL / Google / MyMemory
 ; ============================================================
 
 ; --- Reads KEY=VALUE pairs from a ".env" file next to the script into a ---
@@ -686,9 +686,20 @@ TranslateText(text, fromHebrew) {
     return ""
 }
 
-; --- Hotkey: Ctrl+Alt+H ---
-; --- קיצור מקלדת: Ctrl+Alt+H ---
-^!h::
+; --- The hotkeys use CapsLock as their modifier (hold CapsLock, press ---
+; --- the letter). That takes away CapsLock's own function, so this ---
+; --- hotkey gives it back: CapsLock pressed and released by itself ---
+; --- still toggles Caps Lock (on release, and only if no other key was ---
+; --- pressed while it was held). ---
+; --- הקיצורים משתמשים ב-CapsLock כמקש עזר (מחזיקים CapsLock ולוחצים ---
+; --- על האות). זה מבטל את הפעולה הרגילה של CapsLock, ולכן הקיצור הזה ---
+; --- מחזיר אותה: לחיצה ושחרור של CapsLock לבד עדיין מחליפים מצב ---
+; --- אותיות גדולות (בשחרור, ורק אם לא נלחץ מקש אחר בזמן שהוחזק). ---
+CapsLock::SetCapsLockState(!GetKeyState("CapsLock", "T"))
+
+; --- Hotkey: CapsLock+H ---
+; --- קיצור מקלדת: CapsLock+H ---
+CapsLock & h::
 {
     savedClip := ""
     original := GetSelectedText(&savedClip)
@@ -704,9 +715,9 @@ TranslateText(text, fromHebrew) {
     ReplaceSelection(converted, savedClip)
 }
 
-; --- Hotkey: Ctrl+Alt+J - reverses the character order of the selection ---
-; --- קיצור מקלדת: Ctrl+Alt+J - הופך את סדר התווים בטקסט המסומן ---
-^!j::
+; --- Hotkey: CapsLock+J - restores reversed text in the selection ---
+; --- קיצור מקלדת: CapsLock+J - משחזר טקסט הפוך בטקסט המסומן ---
+CapsLock & j::
 {
     savedClip := ""
     original := GetSelectedText(&savedClip)
@@ -717,9 +728,9 @@ TranslateText(text, fromHebrew) {
     ReplaceSelection(converted, savedClip)
 }
 
-; --- Hotkey: Ctrl+Alt+T - translates the selection between Hebrew and English ---
-; --- קיצור מקלדת: Ctrl+Alt+T - מתרגם את הבחירה בין עברית לאנגלית ---
-^!t::
+; --- Hotkey: CapsLock+T - translates the selection between Hebrew and English ---
+; --- קיצור מקלדת: CapsLock+T - מתרגם את הבחירה בין עברית לאנגלית ---
+CapsLock & t::
 {
     savedClip := ""
     original := GetSelectedText(&savedClip)
