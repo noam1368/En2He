@@ -7,6 +7,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 1 | 2026-10-20 | Tiberias | 5,350 | i5-13600KF | RTX 3080 Zotac AMP Holo (10 or 12 GB?) | 32 GB DDR5 | 78 (10 GB) / 83 (12 GB) | Open questions |
 | 2 | 2026-10-20 | Ashkelon | 2,700 | i5-12400F | RTX 3060 Ti (8 GB) | 16 GB DDR4 | 74–76 | Open questions |
 | 3 | 2026-10-20 | Bat Yam | 4,300 | i5-14400F | Gigabyte RTX 3070 Ti Gaming OC (8 GB) | 16 GB DDR4 | 77 | Open questions |
+| 4 | 2026-10-20 | Rishon LeZion | 800 | Ryzen 7 3700X | GT 710 (useless for DL) | 16 GB | ~60 (many unknowns) | Open questions |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -45,3 +46,15 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **OS:** Windows 11 Pro.
 - **Notes:** everything is new except the GPU, and it comes with warranties. Same 8 GB VRAM limit as #2, but 1,600 ILS more; the extra buys warranty, a newer CPU, a 1 TB SSD and a better PSU. Upgrading to a 16 GB card would cost about 7,300 minus the 3070 Ti's resale, well over budget. 14th-gen CPU, so check the BIOS fix.
 - **Ask:** Is the seller a store or a private person (who honors the warranties)? Is the BIOS updated? Is the GPU warranty in writing?
+
+## 4. Rishon LeZion, 800 ILS: Ryzen 7 3700X + GT 710
+
+- **CPU:** Ryzen 7 3700X (8 cores / 16 threads).
+- **RAM:** 16 GB.
+- **GPU:** NVIDIA GT 710. A display adapter only; too old for current CUDA/PyTorch.
+- **Storage:** 250 GB ("fast drive"; SSD not confirmed).
+- **Side panel:** missing.
+- **OS:** Windows 10 Pro, Hebrew, clean install. Windows 10 support has ended, but the CPU qualifies for a free upgrade to Windows 11.
+- **Unknown:** PSU, motherboard, case.
+- **Notes:** the cheapest route to 16 GB VRAM: 800 + about 3,000 for an RTX 5060 Ti 16GB = about 3,800, leaving room for a bigger SSD and, if needed, a new PSU. Everything hinges on the PSU, since a machine built around a GT 710 may have a weak or no-name one. A B450 board means PCIe 3.0 (small loss); B550/X570 means 4.0.
+- **Ask:** PSU brand, wattage and 8-pin PCIe connector? Motherboard model? Is the 250 GB an SSD? RAM 2x8 or 1x16? Case model, and does a 25-30 cm card fit? Why is the side panel missing?
