@@ -14,6 +14,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 8 | 2026-10-20 | Rishon LeZion | 1,600 | i7-8850H | Quadro P1000 (4 GB) | 16 GB DDR4 | ~13 (laptop gate) | Not for DL |
 | 9 | 2026-10-20 | Rehovot | 3,700 | Ryzen 9 5900HX | RTX 3070 Laptop (8 GB) | 32 GB DDR4 | ~55-60 (laptop gate, cap 60) | Only if portability matters |
 | 10 | 2026-10-20 | Be'er Sheva | 2,850 | i5-10400 | ASUS RTX 4060 (8 GB) | 32 GB | ~61 | Open questions; close to #2 |
+| 11 | 2026-10-20 | Ra'anana | 2,800 | i7-9700K | Gainward RTX 2080 Super (8 GB) | 32 GB DDR4 | ~71 | Best base among the ~2,800 group |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -132,3 +133,18 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Unknown:** PSU and motherboard.
 - **Notes:** 8 GB VRAM. The 4060 has low memory bandwidth (272 GB/s vs 448 on the 3060 Ti), so it's slower for LLM inference. A 10th-gen CPU means PCIe 3.0 only. 32 GB RAM is a plus at current RAM prices. Plan: sell the 4060 (newer card, good resale) and fit a 5060 Ti 16GB, about 5,850 minus resale. The 4060 draws only about 115W, so the PSU may be small: check it before planning a 5060 Ti.
 - **Ask:** PSU brand, wattage and 8-pin? Motherboard model? RAM 2x16 or 4x8, and its speed? Case model?
+
+## 11. Ra'anana, 2,800 ILS: i7-9700K + RTX 2080 Super
+
+- **Service:** by a technician. New thermal paste on the CPU and GPU, full cleaning and cable management, clean Windows 11 Pro (activated). The seller guarantees it works.
+- **CPU:** i7-9700K (8 cores / 8 threads, no hyper-threading), with a Gamdias 240mm AIO.
+- **Motherboard:** ASUS TUF Gaming Z390. PCIe 3.0.
+- **RAM:** Kingston Fury Renegade 2x16 GB DDR4-3000.
+- **GPU:** Gainward RTX 2080 Super 8 GB.
+- **Storage:** WD 1 TB NVMe SSD.
+- **PSU:** FSP Hydro 850W.
+- **Fans:** 5x Corsair SP120 with a Corsair Commander XT controller.
+- **Case:** FSP.
+- **Network:** Wi-Fi card with antenna.
+- **Notes:** the 2080 Super has 496 GB/s memory bandwidth, faster for LLM inference than the 3060 Ti or 4060, but it's still 8 GB. The 850W PSU is ready for any future card. 32 GB RAM and a 1 TB SSD mean nothing else to buy. Weak spots: a 9th-gen CPU (fine for GPU work), PCIe 3.0, and 2019-era parts, including the AIO pump. Plan: sell the 2080 Super and fit a 5060 Ti 16GB, about 5,800 minus resale.
+- **Ask:** Exact PSU model (Hydro G/GT = Gold, Hydro K = Bronze)? Age of the parts and the AIO? How long is the guarantee, and is it in writing? Run a stress test in person.
