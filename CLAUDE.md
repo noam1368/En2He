@@ -66,6 +66,7 @@ There is no test suite in the repo. The J logic was tested with a throwaway AHK 
 4. `6cda28d` — fix Hebrew mojibake in responses; tolerate quoted `.env` values.
 5. `7ee1efd` — fix Google 429 by switching to the `dict-chrome-ex` endpoint.
 6. `300e1c5` — `Ctrl+Alt+J` rewritten: per-line, Bidi-based restore of mixed Hebrew/English.
+7. `dc86e8a` — hotkeys moved from `Ctrl+Alt+H/J/T` to `CapsLock+H/J/T`.
 
 ## Status
 
