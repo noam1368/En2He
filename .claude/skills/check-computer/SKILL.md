@@ -38,6 +38,7 @@ The user wants to run DL models locally (LLMs, image generation, small fine-tune
 
    Score unknown items at the "unknown" level, or about half marks if no such level is listed, and say so.
 4. **Compare to the current laptop.** In one line: is this a real step up for DL, or a sidegrade?
+5. **Record and compare.** Read `candidates.md` (next to this file). Add the new listing, or update an existing one when the user brings new details such as price, city or answers from the seller. Record the date, city, price, full parts list, score, notes and open questions. Then compare it with the other candidates.
 
 ## Output format
 
