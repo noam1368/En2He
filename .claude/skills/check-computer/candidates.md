@@ -13,6 +13,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 7 | 2026-10-20 | Tel Aviv | 2,400 | i7-10700 | Gigabyte RTX 2060 (6 GB) | 16 GB DDR4 | ~62 | Behind #2 |
 | 8 | 2026-10-20 | Rishon LeZion | 1,600 | i7-8850H | Quadro P1000 (4 GB) | 16 GB DDR4 | ~13 (laptop gate) | Not for DL |
 | 9 | 2026-10-20 | Rehovot | 3,700 | Ryzen 9 5900HX | RTX 3070 Laptop (8 GB) | 32 GB DDR4 | ~55-60 (laptop gate, cap 60) | Only if portability matters |
+| 10 | 2026-10-20 | Be'er Sheva | 2,850 | i5-10400 | ASUS RTX 4060 (8 GB) | 32 GB | ~61 | Open questions; close to #2 |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -120,3 +121,14 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Battery:** the ad says 100%, "used 60 days".
 - **Notes:** a laptop with an NVIDIA GPU, so the laptop gate applies (cap 60). 8 GB VRAM that can never be upgraded. The laptop 3070 is power-limited, slower than the desktop card. Long training runs mean heat and noise. Pros: it replaces the Dynabook entirely (sell it), it's portable, and it has 32 GB RAM. The 5900HX OMEN 16 is a 2021 model, so "used 60 days" needs checking.
 - **Ask:** Purchase date and receipt, any warranty left? A battery report (powercfg /batteryreport)? Exact GPU wattage (TGP)? Run a 15-minute stress test and check temperatures.
+
+## 10. Be'er Sheva, 2,850 ILS: i5-10400 + RTX 4060
+
+- **CPU:** i5-10400 (6 cores / 12 threads).
+- **RAM:** 32 GB.
+- **GPU:** ASUS RTX 4060 8 GB.
+- **Storage:** 480 GB SSD.
+- **Case:** Antec, with RGB and a glass window.
+- **Unknown:** PSU and motherboard.
+- **Notes:** 8 GB VRAM. The 4060 has low memory bandwidth (272 GB/s vs 448 on the 3060 Ti), so it's slower for LLM inference. A 10th-gen CPU means PCIe 3.0 only. 32 GB RAM is a plus at current RAM prices. Plan: sell the 4060 (newer card, good resale) and fit a 5060 Ti 16GB, about 5,850 minus resale. The 4060 draws only about 115W, so the PSU may be small: check it before planning a 5060 Ti.
+- **Ask:** PSU brand, wattage and 8-pin? Motherboard model? RAM 2x16 or 4x8, and its speed? Case model?
