@@ -12,6 +12,7 @@ A single AutoHotkey v2 script for Windows that fixes selected text in any applic
 - `README.md` — user docs, in English and then Hebrew. Keep both halves in sync.
 - `.env.example` — template for `.env`.
 - `.env` — real secrets (`DEEPL_API_KEY`, `MYMEMORY_EMAIL`). Gitignored.
+- `.claude/skills/check-computer/SKILL.md` — unrelated to the tool: a skill that scores a computer listing for running DL models locally (user's GPU-upgrade search, budget ~5,000 ILS).
 
 ## Security rules
 
