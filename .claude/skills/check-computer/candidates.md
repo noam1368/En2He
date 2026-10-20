@@ -15,6 +15,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 9 | 2026-10-20 | Rehovot | 3,700 | Ryzen 9 5900HX | RTX 3070 Laptop (8 GB) | 32 GB DDR4 | ~55-60 (laptop gate, cap 60) | Only if portability matters |
 | 10 | 2026-10-20 | Be'er Sheva | 2,850 | i5-10400 | ASUS RTX 4060 (8 GB) | 32 GB | ~61 | Open questions; close to #2 |
 | 11 | 2026-10-20 | Ra'anana | 2,800 | i7-9700K | Gainward RTX 2080 Super (8 GB) | 32 GB DDR4 | ~71 | Best base among the ~2,800 group |
+| 12 | 2026-10-20 | Ashdod / Ramla | 2,100 | i7-10700 | Gainward GTX 1070 (8 GB) | 16 GB DDR4 | ~59 | Behind #11 |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -148,3 +149,17 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Network:** Wi-Fi card with antenna.
 - **Notes:** the 2080 Super has 496 GB/s memory bandwidth, faster for LLM inference than the 3060 Ti or 4060, but it's still 8 GB. The 850W PSU is ready for any future card. 32 GB RAM and a 1 TB SSD mean nothing else to buy. Weak spots: a 9th-gen CPU (fine for GPU work), PCIe 3.0, and 2019-era parts, including the AIO pump. Plan: sell the 2080 Super and fit a 5060 Ti 16GB, about 5,800 minus resale.
 - **Ask:** Exact PSU model (Hydro G/GT = Gold, Hydro K = Bronze)? Age of the parts and the AIO? How long is the guarantee, and is it in writing? Run a stress test in person.
+
+## 12. Ashdod or Ramla (pickup), 2,100 ILS: i7-10700 + GTX 1070
+
+- **Color:** white gaming PC.
+- **CPU:** i7-10700 (8 cores / 16 threads).
+- **Motherboard:** ASUS Prime H470-Plus. PCIe 3.0, and RAM on H470 runs at 2933 at most.
+- **RAM:** 16 GB DDR4-3200.
+- **GPU:** Gainward GTX 1070 8 GB Gaming OC.
+- **Storage:** 240 GB SSD, plus a 500 GB HDD.
+- **PSU:** 1st Player 600W (new).
+- **Case:** Antec, white, new, with glass side and front and RGB fans.
+- **OS:** Windows 10 Pro. The CPU qualifies for a free upgrade to Windows 11.
+- **Notes:** the seller guarantees it works. The GTX 1070 is a 2016 Pascal card: 8 GB but no tensor cores, it's slow for DL, and support for it in new tools is fading. 1st Player is a lesser-known budget PSU brand. The storage is small. Plan: about 5,100 with a 5060 Ti 16GB, minus the 1070's low resale. For 700 more, #11 (Ra'anana) has an 850W PSU, 32 GB RAM, 1 TB NVMe and a much stronger GPU.
+- **Ask:** RAM 1x16 or 2x8? Exact PSU model? How long is the guarantee?
