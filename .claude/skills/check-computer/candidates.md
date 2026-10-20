@@ -9,6 +9,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 3 | 2026-10-20 | Bat Yam | 4,300 | i5-14400F | Gigabyte RTX 3070 Ti Gaming OC (8 GB) | 16 GB DDR4 | 77 | Open questions |
 | 4 | 2026-10-20 | Rishon LeZion | 800 | Ryzen 7 3700X | GT 710 (useless for DL) | 16 GB | ~60 (many unknowns) | Open questions |
 | 5 | 2026-10-20 | Hadera | 550 | Intel NUC 8 i3 (8th-gen U) | Integrated | 16 GB DDR4 | ~15 (mini PC gate) | Not for DL |
+| 6 | 2026-10-20 | Nof HaGalil | 6,800 | Ryzen 5 9600X | ASUS RTX 5060 Ti (16 GB) | 32 GB DDR5 | 40 (price gate; 85 without it) | Over budget, negotiate |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -67,3 +68,16 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Storage:** 250 GB SSD.
 - **OS:** Windows 11 Pro.
 - **Notes:** a mini PC with no GPU slot, so the mini-PC gate applies. Not a DL candidate. The BEH model has a Thunderbolt 3 port, but an eGPU behind a 2-core CPU isn't worth it. Only useful as a low-power always-on box (home server).
+
+## 6. Nof HaGalil, 6,800 ILS: Ryzen 5 9600X + RTX 5060 Ti 16GB (new)
+
+- **CPU:** Ryzen 5 9600X with an air cooler.
+- **Motherboard:** Maxsun B650M-K, with Wi-Fi 6 and Bluetooth.
+- **GPU:** ASUS RTX 5060 Ti 16 GB.
+- **RAM:** Crucial 2x16 GB DDR5-4800.
+- **Storage:** 1 TB Gen4 NVMe.
+- **PSU:** Antec CSK 750W.
+- **Case:** Antec CX200.
+- **OS:** Windows 11 Pro, licensed.
+- **Notes:** exactly the target spec, all new, but 1,800 ILS over budget, so the price gate applies. At 6,000 or less the score jumps to about 80-85. Maxsun is a budget brand, so check its warranty in Israel. DDR5-4800 is the slow end; EXPO may allow more.
+- **Ask:** Will the seller go down to about 5,500-6,000? Store or private seller? Invoices and warranty for each part (Israeli importer)?
