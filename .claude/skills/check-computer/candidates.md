@@ -16,6 +16,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 10 | 2026-10-20 | Be'er Sheva | 2,850 | i5-10400 | ASUS RTX 4060 (8 GB) | 32 GB | ~61 | Open questions; close to #2 |
 | 11 | 2026-10-20 | Ra'anana | 2,800 | i7-9700K | Gainward RTX 2080 Super (8 GB) | 32 GB DDR4 | ~71 | Best base among the ~2,800 group |
 | 12 | 2026-10-20 | Ashdod / Ramla | 2,100 | i7-10700 | Gainward GTX 1070 (8 GB) | 16 GB DDR4 | ~59 | Behind #11 |
+| 13 | 2026-10-20 | Beit Shemesh / Jerusalem | 2,500 (negotiable) | Ryzen 5 3600 | GTX 1080 (8 GB) | 16 GB | ~54 (many unknowns) | Behind #11 |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -163,3 +164,12 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **OS:** Windows 10 Pro. The CPU qualifies for a free upgrade to Windows 11.
 - **Notes:** the seller guarantees it works. The GTX 1070 is a 2016 Pascal card: 8 GB but no tensor cores, it's slow for DL, and support for it in new tools is fading. 1st Player is a lesser-known budget PSU brand. The storage is small. Plan: about 5,100 with a 5060 Ti 16GB, minus the 1070's low resale. For 700 more, #11 (Ra'anana) has an 850W PSU, 32 GB RAM, 1 TB NVMe and a much stronger GPU.
 - **Ask:** RAM 1x16 or 2x8? Exact PSU model? How long is the guarantee?
+
+## 13. Beit Shemesh or Jerusalem, 2,500 ILS (negotiable): Ryzen 5 3600 + GTX 1080
+
+- **CPU:** Ryzen 5 3600 (6 cores / 12 threads).
+- **GPU:** GTX 1080 8 GB.
+- **RAM:** 16 GB.
+- **Storage:** 2 TB, type not stated.
+- **Notes:** a very sparse ad. The GTX 1080 is a 2016 Pascal card with no tensor cores; it's slow for DL and support for it in new tools is fading. PSU, motherboard, case and storage type are unknown. At 2,500 it's no better than #11 (Ra'anana, 2,800). Worth it only with a much lower price and a good PSU, as a base for a 5060 Ti.
+- **Ask:** PSU brand, wattage and 8-pin? Motherboard model (B450 means PCIe 3.0, B550 means 4.0)? Is the 2 TB an SSD or an HDD? RAM 2x8? Case model? What's the lowest price?
