@@ -17,6 +17,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 11 | 2026-10-20 | Ra'anana | 2,800 | i7-9700K | Gainward RTX 2080 Super (8 GB) | 32 GB DDR4 | ~71 | Best base among the ~2,800 group |
 | 12 | 2026-10-20 | Ashdod / Ramla | 2,100 | i7-10700 | Gainward GTX 1070 (8 GB) | 16 GB DDR4 | ~59 | Behind #11 |
 | 13 | 2026-10-20 | Beit Shemesh / Jerusalem | 2,500 (negotiable) | Ryzen 5 3600 | GTX 1080 (8 GB) | 16 GB | ~54 (many unknowns) | Behind #11 |
+| 14 | 2026-10-20 | Petah Tikva | ? | i5-14400F | Inno3D RTX 5060 Ti (16 GB) | 32 GB DDR5-6000 | 92 without price (100 at ≤5,000; 40 above 6,000) | Need price - top candidate |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -173,3 +174,15 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Storage:** 2 TB, type not stated.
 - **Notes:** a very sparse ad. The GTX 1080 is a 2016 Pascal card with no tensor cores; it's slow for DL and support for it in new tools is fading. PSU, motherboard, case and storage type are unknown. At 2,500 it's no better than #11 (Ra'anana, 2,800). Worth it only with a much lower price and a good PSU, as a base for a 5060 Ti.
 - **Ask:** PSU brand, wattage and 8-pin? Motherboard model (B450 means PCIe 3.0, B550 means 4.0)? Is the 2 TB an SSD or an HDD? RAM 2x8? Case model? What's the lowest price?
+
+## 14. Petah Tikva, price not stated: i5-14400F + RTX 5060 Ti 16GB (almost unused)
+
+- **CPU:** i5-14400F.
+- **RAM:** G.Skill 32 GB DDR5-6000.
+- **GPU:** Inno3D RTX 5060 Ti 16 GB (the ad stresses it is the 16 GB version, not 8 GB).
+- **Storage:** Samsung 1 TB NVMe SSD.
+- **Motherboard:** Maxsun B760M Gaming WiFi (DDR5). PCIe 4.0.
+- **PSU:** Super Flower 650W.
+- **Case:** Antec CX300.
+- **Notes:** the target spec, ready to go. Super Flower is a top-tier PSU maker. It has faster RAM than #6 (6000 vs 4800). Maxsun is a budget board brand, so check its warranty in Israel. 14th-gen CPU, so check the BIOS has Intel's microcode fix. Everything depends on the price: up to about 5,500 is a strong buy.
+- **Ask:** Price? Purchase date, receipts and warranty (Israeli importer)? Is the BIOS updated? Confirm the 16 GB card in GPU-Z or nvidia-smi.
