@@ -8,6 +8,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 2 | 2026-10-20 | Ashkelon | 2,700 | i5-12400F | RTX 3060 Ti (8 GB) | 16 GB DDR4 | 74–76 | Open questions |
 | 3 | 2026-10-20 | Bat Yam | 4,300 | i5-14400F | Gigabyte RTX 3070 Ti Gaming OC (8 GB) | 16 GB DDR4 | 77 | Open questions |
 | 4 | 2026-10-20 | Rishon LeZion | 800 | Ryzen 7 3700X | GT 710 (useless for DL) | 16 GB | ~60 (many unknowns) | Open questions |
+| 5 | 2026-10-20 | Hadera | 550 | Intel NUC 8 i3 (8th-gen U) | Integrated | 16 GB DDR4 | ~15 (mini PC gate) | Not for DL |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -58,3 +59,11 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Unknown:** PSU, motherboard, case.
 - **Notes:** the cheapest route to 16 GB VRAM: 800 + about 3,000 for an RTX 5060 Ti 16GB = about 3,800, leaving room for a bigger SSD and, if needed, a new PSU. Everything hinges on the PSU, since a machine built around a GT 710 may have a weak or no-name one. A B450 board means PCIe 3.0 (small loss); B550/X570 means 4.0.
 - **Ask:** PSU brand, wattage and 8-pin PCIe connector? Motherboard model? Is the 250 GB an SSD? RAM 2x8 or 1x16? Case model, and does a 25-30 cm card fit? Why is the side panel missing?
+
+## 5. Hadera, 550 ILS: Intel NUC 8 i3 mini PC
+
+- **CPU:** 8th-gen i3 U-series ("u8100" in the ad; probably the NUC8i3BEH, i3-8109U, 2 cores / 4 threads).
+- **RAM:** 16 GB DDR4.
+- **Storage:** 250 GB SSD.
+- **OS:** Windows 11 Pro.
+- **Notes:** a mini PC with no GPU slot, so the mini-PC gate applies. Not a DL candidate. The BEH model has a Thunderbolt 3 port, but an eGPU behind a 2-core CPU isn't worth it. Only useful as a low-power always-on box (home server).
