@@ -10,6 +10,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 4 | 2026-10-20 | Rishon LeZion | 800 | Ryzen 7 3700X | GT 710 (useless for DL) | 16 GB | ~60 (many unknowns) | Open questions |
 | 5 | 2026-10-20 | Hadera | 550 | Intel NUC 8 i3 (8th-gen U) | Integrated | 16 GB DDR4 | ~15 (mini PC gate) | Not for DL |
 | 6 | 2026-10-20 | Nof HaGalil | 6,800 | Ryzen 5 9600X | ASUS RTX 5060 Ti (16 GB) | 32 GB DDR5 | 40 (price gate; 85 without it) | Over budget, negotiate |
+| 7 | 2026-10-20 | Tel Aviv | 2,400 | i7-10700 | Gigabyte RTX 2060 (6 GB) | 16 GB DDR4 | ~62 | Behind #2 |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -81,3 +82,18 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **OS:** Windows 11 Pro, licensed.
 - **Notes:** exactly the target spec, all new, but 1,800 ILS over budget, so the price gate applies. At 6,000 or less the score jumps to about 80-85. Maxsun is a budget brand, so check its warranty in Israel. DDR5-4800 is the slow end; EXPO may allow more.
 - **Ask:** Will the seller go down to about 5,500-6,000? Store or private seller? Invoices and warranty for each part (Israeli importer)?
+
+## 7. Tel Aviv, 2,400 ILS: i7-10700 + RTX 2060 6GB
+
+- **Ad:** Facebook post https://www.facebook.com/share/p/19rTxLdkGa/
+- **CPU:** i7-10700 (8 cores / 16 threads), cooled by an Antec T120 RGB (new).
+- **Motherboard:** ASRock B460M, socket 1200. PCIe 3.0.
+- **RAM:** 16 GB DDR4, sold as 2666 but shown running at 2133 MT/s.
+- **GPU:** Gigabyte RTX 2060 Rev. A 6 GB (TU106).
+- **Storage:** Intel 512 GB NVMe SSD (477 GB usable, 61 GB used).
+- **PSU:** Gigabyte 550W (new).
+- **Case:** Corsair, white.
+- **OS:** Windows 11 Pro, Hebrew.
+- **Photos:** a Unigine Superposition 1080p Medium run scored 14,279 (avg 106.8 fps, GPU max 78°C, 98% utilization), so the GPU looks healthy. The About page confirms the i7-10700, 16 GB, RTX 2060 6 GB and 477 GB.
+- **Notes:** 6 GB VRAM is too little, so the plan is a GPU swap: about 5,400 minus the 2060's resale. The board is PCIe 3.0. #2 (Ashkelon) is a better base for 300 ILS more: 12th gen, PCIe 4.0, and a 3060 Ti that resells for more.
+- **Ask:** RAM 1x16 or 2x8, and is XMP on? Exact PSU model? Exact board model (number of RAM slots)? Case model?
