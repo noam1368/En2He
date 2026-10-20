@@ -11,6 +11,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 5 | 2026-10-20 | Hadera | 550 | Intel NUC 8 i3 (8th-gen U) | Integrated | 16 GB DDR4 | ~15 (mini PC gate) | Not for DL |
 | 6 | 2026-10-20 | Nof HaGalil | 6,800 | Ryzen 5 9600X | ASUS RTX 5060 Ti (16 GB) | 32 GB DDR5 | 40 (price gate; 85 without it) | Over budget, negotiate |
 | 7 | 2026-10-20 | Tel Aviv | 2,400 | i7-10700 | Gigabyte RTX 2060 (6 GB) | 16 GB DDR4 | ~62 | Behind #2 |
+| 8 | 2026-10-20 | Rishon LeZion | 1,600 | i7-8850H | Quadro P1000 (4 GB) | 16 GB DDR4 | ~13 (laptop gate) | Not for DL |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -97,3 +98,12 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **Photos:** a Unigine Superposition 1080p Medium run scored 14,279 (avg 106.8 fps, GPU max 78°C, 98% utilization), so the GPU looks healthy. The About page confirms the i7-10700, 16 GB, RTX 2060 6 GB and 477 GB.
 - **Notes:** 6 GB VRAM is too little, so the plan is a GPU swap: about 5,400 minus the 2060's resale. The board is PCIe 3.0. #2 (Ashkelon) is a better base for 300 ILS more: 12th gen, PCIe 4.0, and a 3060 Ti that resells for more.
 - **Ask:** RAM 1x16 or 2x8, and is XMP on? Exact PSU model? Exact board model (number of RAM slots)? Case model?
+
+## 8. Rishon LeZion, 1,600 ILS: Dell Precision 5530 laptop
+
+- **CPU:** i7-8850H (6 cores / 12 threads).
+- **RAM:** 16 GB DDR4.
+- **Storage:** 512 GB NVMe SSD.
+- **GPU:** Quadro P1000 4 GB.
+- **Screen:** 15.6".
+- **Notes:** a laptop whose NVIDIA GPU is under 8 GB, so the laptop gate applies (cap 15). The P1000 is an old Pascal card with 4 GB; support for it in new DL tools is fading. It has Thunderbolt 3, but an eGPU enclosure plus a card blows the budget and still leaves you on a laptop. The CPU is stronger than the current Dynabook's, but for DL it's a sidegrade.
