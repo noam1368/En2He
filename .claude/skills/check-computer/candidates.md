@@ -12,6 +12,7 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 | 6 | 2026-10-20 | Nof HaGalil | 6,800 | Ryzen 5 9600X | ASUS RTX 5060 Ti (16 GB) | 32 GB DDR5 | 40 (price gate; 85 without it) | Over budget, negotiate |
 | 7 | 2026-10-20 | Tel Aviv | 2,400 | i7-10700 | Gigabyte RTX 2060 (6 GB) | 16 GB DDR4 | ~62 | Behind #2 |
 | 8 | 2026-10-20 | Rishon LeZion | 1,600 | i7-8850H | Quadro P1000 (4 GB) | 16 GB DDR4 | ~13 (laptop gate) | Not for DL |
+| 9 | 2026-10-20 | Rehovot | 3,700 | Ryzen 9 5900HX | RTX 3070 Laptop (8 GB) | 32 GB DDR4 | ~55-60 (laptop gate, cap 60) | Only if portability matters |
 
 ## 1. Tiberias, 5,350 ILS: i5-13600KF + RTX 3080
 
@@ -107,3 +108,15 @@ One entry per listing, newest last. Enough detail to find the ad again (city, pr
 - **GPU:** Quadro P1000 4 GB.
 - **Screen:** 15.6".
 - **Notes:** a laptop whose NVIDIA GPU is under 8 GB, so the laptop gate applies (cap 15). The P1000 is an old Pascal card with 4 GB; support for it in new DL tools is fading. It has Thunderbolt 3, but an eGPU enclosure plus a card blows the budget and still leaves you on a laptop. The CPU is stronger than the current Dynabook's, but for DL it's a sidegrade.
+
+## 9. Rehovot, 3,700 ILS: HP OMEN 16 gaming laptop
+
+- **CPU:** Ryzen 9 5900HX (8 cores / 16 threads).
+- **RAM:** 32 GB DDR4.
+- **GPU:** RTX 3070 Laptop, 8 GB.
+- **Storage:** 1 TB SSD.
+- **Screen:** 16.1".
+- **OS:** Windows 11 Pro.
+- **Battery:** the ad says 100%, "used 60 days".
+- **Notes:** a laptop with an NVIDIA GPU, so the laptop gate applies (cap 60). 8 GB VRAM that can never be upgraded. The laptop 3070 is power-limited, slower than the desktop card. Long training runs mean heat and noise. Pros: it replaces the Dynabook entirely (sell it), it's portable, and it has 32 GB RAM. The 5900HX OMEN 16 is a 2021 model, so "used 60 days" needs checking.
+- **Ask:** Purchase date and receipt, any warranty left? A battery report (powercfg /batteryreport)? Exact GPU wattage (TGP)? Run a 15-minute stress test and check temperatures.
